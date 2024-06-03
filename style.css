@@ -19,7 +19,7 @@ body {
   font-family: 'Bubblegum Sans', sans-serif;
   font-size: 20px;
   height: 100%;
-  background-image: url('./assets/011.png');
+  background-color: #FF5757;
   background-attachment: fixed;
 }
 header {
@@ -84,7 +84,7 @@ nav i {
   width: 30vw;
   height: 30vw;
   top: 200px;
-  left: 5%;
+  left: 10%;
 }
 .loader {
   color: #E9336E;
@@ -126,7 +126,7 @@ nav i {
   display: block;
   position: absolute;
   width: 50%;
-  top: 200px;
+  top: 240px;
   right: 5%;
   border: 4px solid #000;
   background: #793CE2;
