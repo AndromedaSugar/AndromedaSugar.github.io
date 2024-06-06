@@ -19,6 +19,10 @@ $(function() {
   $('.randomize_button').click(function() {
     randomize();
   });
+
+   $('#download_button').click(function() {
+    downloadImage();
+  });
 });
 
 const load_traits = function() {
@@ -91,3 +95,30 @@ const randomize = async function() {
   });
 }
 
+const downloadImage = function() {
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+
+  const images = $('.layer_select').map(function() {
+    return new Image();
+  }).get();
+
+  images.forEach((img, index) => {
+    img.src = 'assets/' + $('.layer_select').eq(index).val() + '.png';
+  });
+
+  Promise.all(images.map(img => new Promise((resolve) => {
+    img.onload = resolve;
+  }))).then(() => {
+    canvas.width = images[0].width;
+    canvas.height = images[0].height;
+    images.forEach(img => {
+      ctx.drawImage(img, 0, 0);
+    });
+    const dataURL = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'image.png';
+    link.click();
+  });
+}
