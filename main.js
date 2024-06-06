@@ -102,7 +102,15 @@ const downloadImage = function() {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
-  const layerOrder = [0, 4, 1, 5, 2, 6, 3, 7];
+  const layerOrder = [0, 2, 6, 3, 1, 4, 5, 7];
+  // Background = 0
+  // Mouth = 1
+  // Body = 2
+  // Nose = 3
+  // Flair = 4
+  // Hat = 5
+  // Head = 6
+  // Eyes = 7
   const images = layerOrder.map(i => {
     const img = new Image();
     img.src = 'assets/' + $('.layer_select').eq(i).val() + '.png';
