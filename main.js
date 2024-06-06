@@ -20,7 +20,7 @@ $(function() {
     randomize();
   });
 
-   $('#download_button').click(function() {
+  $('#download_button').click(function() {
     downloadImage();
   });
 });
@@ -59,6 +59,9 @@ const preload = function(src) {
     img.onload = function() {
       console.log(src);
       resolve(src);
+    }
+    img.onerror = function() {
+      reject(new Error('Failed to load image: ' + src));
     }
     img.src = src;
   });
@@ -99,16 +102,16 @@ const downloadImage = function() {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
-  const images = $('.layer_select').map(function() {
-    return new Image();
-  }).get();
-
-  images.forEach((img, index) => {
-    img.src = 'assets/' + $('.layer_select').eq(index).val() + '.png';
+  const layerOrder = [0, 4, 1, 5, 2, 6, 3, 7];
+  const images = layerOrder.map(i => {
+    const img = new Image();
+    img.src = 'assets/' + $('.layer_select').eq(i).val() + '.png';
+    return img;
   });
 
-  Promise.all(images.map(img => new Promise((resolve) => {
+  Promise.all(images.map(img => new Promise((resolve, reject) => {
     img.onload = resolve;
+    img.onerror = () => reject(new Error('Failed to load image: ' + img.src));
   }))).then(() => {
     canvas.width = images[0].width;
     canvas.height = images[0].height;
@@ -120,5 +123,7 @@ const downloadImage = function() {
     link.href = dataURL;
     link.download = 'image.png';
     link.click();
+  }).catch(error => {
+    console.error(error);
   });
 }
