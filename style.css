@@ -292,3 +292,23 @@ nav i {
     transform: rotate(0deg);
   }
 }
+
+/* footer */
+.footer {
+
+  height: auto;
+  .container {
+    .text-muted {
+    }
+  }
+}
+
+.social-icons {
+  margin-top: 20px;
+}
+
+.social-icons a {
+  margin: 0 10px;
+  color: #000;
+  font-size: 24px;
+}
